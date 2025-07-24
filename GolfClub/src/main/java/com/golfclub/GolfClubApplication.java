@@ -1,4 +1,4 @@
-package com.golfclub.golfclub;
+package com.golfclub;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

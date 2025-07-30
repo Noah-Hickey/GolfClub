@@ -1,9 +1,14 @@
 package com.golfclub.tournament;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.time.LocalDate;
+import java.util.List;
 
-public interface TournamentRepository {
+@Repository
+public interface TournamentRepository extends JpaRepository<Tournament, Long> {
 
-    public Tournament findByStartDate(LocalDate startDate);
-    public Tournament findByLocationContainingIgnoreCase(String location);
+    List<Tournament> findByStartDate(LocalDate startDate);
+    List<Tournament> findByLocationContainingIgnoreCase(String location);
 }

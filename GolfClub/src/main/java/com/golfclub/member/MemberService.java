@@ -41,12 +41,12 @@ public class MemberService {
     public Member createMember(Member member) {
         validateMember(member);
 
-        // Check if email already exists
+        // Check if email already exists //
         if (member.getEmail() != null && !memberRepository.findByEmail(member.getEmail()).isEmpty()) {
             throw new IllegalArgumentException("Member with email " + member.getEmail() + " already exists");
         }
 
-        // Set start date if not provided
+        // Set start date if not provided //
         if (member.getStartDate() == null) {
             member.setStartDate(LocalDate.now());
         }
@@ -60,21 +60,21 @@ public class MemberService {
 
         validateMember(updatedMember);
 
-        // Check if email is being changed to one that already exists
+        // Check if email is being changed to one that already exists //
         if (updatedMember.getEmail() != null &&
                 !updatedMember.getEmail().equals(existingMember.getEmail()) &&
                 !memberRepository.findByEmail(updatedMember.getEmail()).isEmpty()) {
             throw new IllegalArgumentException("Member with email " + updatedMember.getEmail() + " already exists");
         }
 
-        // Update fields
+        // Update fields //
         existingMember.setName(updatedMember.getName());
         existingMember.setAddress(updatedMember.getAddress());
         existingMember.setEmail(updatedMember.getEmail());
         existingMember.setPhone(updatedMember.getPhone());
         existingMember.setDurationMonths(updatedMember.getDurationMonths());
 
-        // Don't update start date through this method
+        // Don't update start date through this method //
         if (updatedMember.getStartDate() != null) {
             existingMember.setStartDate(updatedMember.getStartDate());
         }
@@ -86,7 +86,7 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new MemberNotFoundException("Member with ID " + id + " not found"));
 
-        // Check if member is enrolled in any active tournaments
+        // Check if member is enrolled in any active tournaments //
         if (!member.getTournaments().isEmpty()) {
             throw new IllegalStateException("Cannot delete member who is enrolled in tournaments. Remove from tournaments first.");
         }
@@ -189,7 +189,7 @@ public class MemberService {
     }
 }
 
-// Custom exception class
+// Exception class //
 class MemberNotFoundException extends RuntimeException {
     public MemberNotFoundException(String message) {
         super(message);

@@ -22,10 +22,10 @@ public class Member {
     @ManyToMany(mappedBy = "participants")
     private Set<Tournament> tournaments = new HashSet<>();
 
-    // Constructors
+    // Constructors //
     public Member() {}
 
-    // Getters and Setters
+    // Getters and Setters //
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

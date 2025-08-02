@@ -1,29 +1,30 @@
-version: "3.8"
+# docker-compose.yml
+
 services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_ROOT_PASSWORD: rootroot
       MYSQL_DATABASE: golfclub
-      MYSQL_USER: golf
-      MYSQL_PASSWORD: golfpass
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
 
-  golfclub-api:
-    build: .
-    image: golfclub-api:latest
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/golfclub
-      SPRING_DATASOURCE_USERNAME: golf
-      SPRING_DATASOURCE_PASSWORD: golfpass
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/golfclub?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootroot
+    ports:
+      - "8080:8080"
 
 volumes:
   db_data:
+
 
